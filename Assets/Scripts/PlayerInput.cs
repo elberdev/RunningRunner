@@ -98,9 +98,35 @@ public class PlayerInput : MonoBehaviour {
 			// if we have any touches...
 			if (Input.touches.Length > 0) {
 			
+				// get the main touch
+				DeviceTouch = Input.GetTouch (0);
+
+				// if we are not in the middle of a touch gesture
+				if (ActiveTouch.Phase == TouchPhase.Canceled) {
 				
+					// set the initial conditions
+					ActiveTouch.Phase = DeviceTouch.phase;
+					ActiveTouch.StartTime = System.DateTime.Now;
+					ActiveTouch.StartTouchLocation = DeviceTouch.position;
+					ActiveTouch.CurrentTouchLocation = DeviceTouch.position;
+				
+				} else {
+
+					// otherwise just update the location
+					ActiveTouch.CurrentTouchLocation = DeviceTouch.position;
+				}
+			
+				// if there are no touches
+			} else {
+
+				// but the last touch still hasn't been calculated
+				if (ActiveTouch.Phase != TouchPhase.Canceled) {
+
+					// perform the calculations for the touch and reset status
+					CalculateTouchInput (ActiveTouch);
+					ActiveTouch.Phase = TouchPhase.Canceled;
+				}
 			}
 		}
-	
 	}
 }
