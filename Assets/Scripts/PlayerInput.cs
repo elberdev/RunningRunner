@@ -59,6 +59,48 @@ public class PlayerInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// editor input logic for mouse
+		if (Application.isEditor) {
+
+			// if left mouse button (left click) is pressed
+			if (Input.GetMouseButton (0)) {
+			
+				// register a beginning touch
+				if (ActiveTouch.Phase == TouchPhase.Canceled) {
+				
+					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
+					ActiveTouch.StartTouchLocation = Input.mousePosition;
+					ActiveTouch.StartTime = System.DateTime.Now;
+					ActiveTouch.Phase = TouchPhase.Began;
+				
+					// or update the current location as the mouse moves 
+				} else {
+
+					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
+				}
+
+			// if left click is not activated
+			} else {
+
+				// and there is an outstanding touch event
+				if (ActiveTouch.Phase == TouchPhase.Began) {
+
+					// end the touch event and calculate the result
+					CalculateTouchInput (ActiveTouch);
+					ActiveTouch.Phase = TouchPhase.Canceled;
+				}
+			}
+
+		// input logic for touch device
+		} else {
+
+			// if we have any touches...
+			if (Input.touches.Length > 0) {
+			
+				
+			}
+		}
 	
 	}
 }
