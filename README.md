@@ -13,3 +13,6 @@
 * Learned about the normalized and magnitude properties of Vector2 and Vector3 objects.
 * Reviewed animation controller creation and customization.
 * Learned how to break apart sprite sheets into individual frames for animation.
+* Learned to use Sprite Renderer component.
+* Learned to use Animator Component.
+* Learned to use Rigidbody 2D Component.
