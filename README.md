@@ -10,4 +10,4 @@
 	// do some stuff
 #endif
 ```
-
+* Learned about the normalized and magnitude properties of Vector2 and Vector3 objects.
