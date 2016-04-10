@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour {
 	public float SwipeDistance;
 
 	// our player
-	public GameObject GameCharacter;
+	public Character GameCharacter;
 
 	// variables for us to link unity's raw touch input to our custom touch
 	private SimpleTouch ActiveTouch;
@@ -47,6 +47,14 @@ public class PlayerInput : MonoBehaviour {
 			(touchDistance > SwipeDistance && touchTimeSpan > SwipeTime) ? "Swipe" : "Tap";
 
 		print (touchType);
+
+		if (GameCharacter != null) {
+		
+			if (!GameCharacter.isDead) {
+			
+				GameCharacter.ReceiveInput (touchDistance, touchDirection);
+			}
+		}
 	}
 
 	// Use this for initialization
