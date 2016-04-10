@@ -7,52 +7,52 @@ public class PlayerInput : MonoBehaviour {
 	// our custom struct for our own simplified touch controls
 	public struct SimpleTouch {
 	
-		public Vector2 StartTouchLocation;
-		public Vector2 CurrentTouchLocation;
-		public DateTime StartTime;
+		public Vector2 startTouchLocation;
+		public Vector2 currentTouchLocation;
+		public DateTime startTime;
 		// we will use this to compare the default touch input from Unity with
 		// our SimpleTouch
-		public TouchPhase Phase;
+		public TouchPhase phase;
 	}
 
 	// these will allow us to finetune the swipe in the editor
-	public float SwipeTime;
-	public float SwipeDistance;
+	public float swipeTime;
+	public float swipeDistance;
 
 	// our player
-	public Character GameCharacter;
+	public Character gameCharacter;
 
 	// variables for us to link unity's raw touch input to our custom touch
-	private SimpleTouch ActiveTouch;
-	private Touch DeviceTouch;
+	private SimpleTouch activeTouch;
+	private Touch deviceTouch;
 
-	private void CalculateTouchInput(SimpleTouch CurrentTouch) {
+	private void CalculateTouchInput(SimpleTouch currentTouch) {
 	
 		// the normalized property of Vector2 returns the same vector but with
 		// a magnitude of 1. We only care about direction here.
 		Vector2 touchDirection = 
-			(CurrentTouch.CurrentTouchLocation - CurrentTouch.StartTouchLocation).normalized;
+			(currentTouch.currentTouchLocation - currentTouch.startTouchLocation).normalized;
 		
 		// here we only get the distance, aka the magnitude. 
 		float touchDistance = 
-			(CurrentTouch.StartTouchLocation - CurrentTouch.CurrentTouchLocation).magnitude;
+			(currentTouch.startTouchLocation - currentTouch.currentTouchLocation).magnitude;
 
 		// get time elapsed from beginning of touch til now
-		TimeSpan timeGap = System.DateTime.Now - CurrentTouch.StartTime;
+		TimeSpan timeGap = System.DateTime.Now - currentTouch.startTime;
 		double touchTimeSpan = timeGap.TotalSeconds;
 
 		// if touch meets our requirements for what constitutes a swipe, we label it a swipe,
 		// otherwise we consider it a tap
 		string touchType = 
-			(touchDistance > SwipeDistance && touchTimeSpan > SwipeTime) ? "Swipe" : "Tap";
+			(touchDistance > swipeDistance && touchTimeSpan > swipeTime) ? "Swipe" : "Tap";
 
 		print (touchType);
 
-		if (GameCharacter != null) {
+		if (gameCharacter != null) {
 		
-			if (!GameCharacter.isDead) {
+			if (!gameCharacter.isDead) {
 			
-				GameCharacter.ReceiveInput (touchDistance, touchDirection);
+				gameCharacter.ReceiveInput (touchDistance, touchDirection);
 			}
 		}
 	}
@@ -62,7 +62,7 @@ public class PlayerInput : MonoBehaviour {
 	
 		// we want to make sure there is no detected touch when the game first starts.
 		// The default is TouchPhase.Began, unfortunately, so we gotta do this.
-		ActiveTouch.Phase = TouchPhase.Canceled;
+		activeTouch.phase = TouchPhase.Canceled;
 	}
 	
 	// Update is called once per frame
@@ -75,28 +75,28 @@ public class PlayerInput : MonoBehaviour {
 			if (Input.GetMouseButton (0)) {
 			
 				// register a beginning touch
-				if (ActiveTouch.Phase == TouchPhase.Canceled) {
+				if (activeTouch.phase == TouchPhase.Canceled) {
 				
-					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
-					ActiveTouch.StartTouchLocation = Input.mousePosition;
-					ActiveTouch.StartTime = System.DateTime.Now;
-					ActiveTouch.Phase = TouchPhase.Began;
+					activeTouch.currentTouchLocation = Input.mousePosition;
+					activeTouch.startTouchLocation = Input.mousePosition;
+					activeTouch.startTime = System.DateTime.Now;
+					activeTouch.phase = TouchPhase.Began;
 				
 					// or update the current location as the mouse moves 
 				} else {
 
-					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
+					activeTouch.currentTouchLocation = Input.mousePosition;
 				}
 
 			// if left click is not activated
 			} else {
 
 				// and there is an outstanding touch event
-				if (ActiveTouch.Phase == TouchPhase.Began) {
+				if (activeTouch.phase == TouchPhase.Began) {
 
 					// end the touch event and calculate the result
-					CalculateTouchInput (ActiveTouch);
-					ActiveTouch.Phase = TouchPhase.Canceled;
+					CalculateTouchInput (activeTouch);
+					activeTouch.phase = TouchPhase.Canceled;
 				}
 			}
 
@@ -107,32 +107,32 @@ public class PlayerInput : MonoBehaviour {
 			if (Input.touches.Length > 0) {
 			
 				// get the main touch
-				DeviceTouch = Input.GetTouch (0);
+				deviceTouch = Input.GetTouch (0);
 
 				// if we are not in the middle of a touch gesture
-				if (ActiveTouch.Phase == TouchPhase.Canceled) {
+				if (activeTouch.phase == TouchPhase.Canceled) {
 				
 					// set the initial conditions
-					ActiveTouch.Phase = DeviceTouch.phase;
-					ActiveTouch.StartTime = System.DateTime.Now;
-					ActiveTouch.StartTouchLocation = DeviceTouch.position;
-					ActiveTouch.CurrentTouchLocation = DeviceTouch.position;
+					activeTouch.phase = deviceTouch.phase;
+					activeTouch.startTime = System.DateTime.Now;
+					activeTouch.startTouchLocation = deviceTouch.position;
+					activeTouch.currentTouchLocation = deviceTouch.position;
 				
 				} else {
 
 					// otherwise just update the location
-					ActiveTouch.CurrentTouchLocation = DeviceTouch.position;
+					activeTouch.currentTouchLocation = deviceTouch.position;
 				}
 			
 				// if there are no touches
 			} else {
 
 				// but the last touch still hasn't been calculated
-				if (ActiveTouch.Phase != TouchPhase.Canceled) {
+				if (activeTouch.phase != TouchPhase.Canceled) {
 
 					// perform the calculations for the touch and reset status
-					CalculateTouchInput (ActiveTouch);
-					ActiveTouch.Phase = TouchPhase.Canceled;
+					CalculateTouchInput (activeTouch);
+					activeTouch.phase = TouchPhase.Canceled;
 				}
 			}
 		}
