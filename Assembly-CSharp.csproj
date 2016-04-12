@@ -224,6 +224,7 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
+     <Compile Include="Assets\Scripts\Obstacle_Axe.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
      <None Include="Assets\Extensions\IOSNative\Documentation\ISN_VersionNotes.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_iAd.mm.txt" />
