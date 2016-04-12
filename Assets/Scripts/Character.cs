@@ -118,4 +118,20 @@ public class Character : MonoBehaviour {
 			}
 		}
 	}
+
+	public void ReviveCharacter() {
+	
+		Color resetColorAlpha = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+
+		// reset status values and character position
+		gameObject.transform.position = restartLocation;
+		isDead = false;
+		isFadeOut = false;
+
+		if (gameCharacterSprite != null) {
+		
+			// reset color of sprite renderer
+			gameCharacterSprite.color = resetColorAlpha;
+		}
+	}
 }
