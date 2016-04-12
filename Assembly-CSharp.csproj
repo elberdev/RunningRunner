@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+      <HintPath>/Applications/Unity5.3.4/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+      <HintPath>/Applications/Unity5.3.4/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +226,7 @@
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\Obstacle_Axe.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\SpriteTiler.cs" />
      <None Include="Assets\Extensions\IOSNative\Documentation\ISN_VersionNotes.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_iAd.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_NSData+Base64.h.txt" />
@@ -242,10 +243,10 @@
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_GameCenter.mm.txt" />
      <None Include="Assets\Plugins\StansAssets\Versions\ISN_VersionInfo.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Unity5.3.4/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>/Applications/Unity5.3.4/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
