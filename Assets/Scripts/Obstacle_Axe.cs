@@ -3,13 +3,17 @@ using System.Collections;
 
 public class Obstacle_Axe : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	void OnTriggerEnter2D(Collider2D collider) {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		Character gameCharacter;
+
+		if (collider.gameObject.name == "Character") {
+		
+			gameCharacter = collider.gameObject.GetComponent<Character> ();
+			if (gameCharacter != null) {
+			
+				gameCharacter.KillCharacter ();
+			}
+		}
 	}
 }

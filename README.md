@@ -19,3 +19,5 @@
 * Learned to use BoxCollider 2D component.
 * Learned how to set Animator parameters from within a script through SetBool, SetFloat, and SetInteger methods.
 * Learned how to use Mathf.Clamp() to enforce minimum and maximum values for a float.
+* Reviewed Random.Range().
+* Reviewed Transform.Rotate().
