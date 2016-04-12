@@ -76,9 +76,9 @@ public class Character : MonoBehaviour {
 	
 		if (characterAnimator != null) {
 
-			// make sure running animation is triggered
+			// reset animation to running
 			characterAnimator.SetBool ("Jump", false);
-			// and we reset our condition check to receive the jump command
+			// reset physics to be able to receive jump swipes
 			isJumping = false;
 		}
 	}
