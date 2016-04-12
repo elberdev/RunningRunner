@@ -37,7 +37,26 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		// fade character frame by frame if isFadeOut is triggered
+		if (isFadeOut) {
+		
+			if (gameCharacterSprite != null) {
+			
+				float currentAlpha = gameCharacterSprite.color.a;
+				currentAlpha -= 0.0085f;
+
+				if (currentAlpha < 0.01f) {
+				
+					currentAlpha = 0.0f;
+				}
+
+				// black of differing decreasing alphas
+				Color newColorAlpha = new Color (1.0f, 1.0f, 1.0f, currentAlpha);
+				// apply to character sprite
+				gameCharacterSprite.color = newColorAlpha;
+			}
+		}
 	}
 
 	// process input
@@ -80,6 +99,23 @@ public class Character : MonoBehaviour {
 			characterAnimator.SetBool ("Jump", false);
 			// reset physics to be able to receive jump swipes
 			isJumping = false;
+		}
+	}
+
+	// kill the character
+	public void KillCharacter() {
+	
+		if (!isDead) {
+		
+			if (characterRigidbody != null) {
+			
+				// will apply random force with randomized x value between -512 and 512, and 512 for y.
+				// Random.Range considers both values inclusive
+				characterRigidbody.AddForce (new Vector2 (Random.Range (-1, 1), 1) * 512);
+				isDead = true;
+				// the consequences of this will be handled in Update() function
+				isFadeOut = true;
+			}
 		}
 	}
 }
