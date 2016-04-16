@@ -19,7 +19,7 @@ public class LevelPieceManager : MonoBehaviour {
 	
 		activeLevelPieces = new LevelPiece[2];
 		activeLevelPieces [0] = startingLevelPiece;
-		activeLevelPieces [1] = GetNextAvailableLevelPiece ();
+		activeLevelPieces [1] = GetRandomLevelPiece ();
 
 		// assign level piece position to the ending position of the previous one
 		activeLevelPieces [1].transform.position = 
@@ -54,11 +54,12 @@ public class LevelPieceManager : MonoBehaviour {
 				// reset used piece location to initial spawn location
 				activeLevelPieces [i].transform.position = activeLevelPieces [i].GetInitialLocation ();
 				// get a new level piece that is not currently in use
-				activeLevelPieces [i] = GetNextAvailableLevelPiece ();
+				activeLevelPieces [i] = GetRandomLevelPiece ();
 				// set its location to the end location of the other active piece
 				activeLevelPieces [i].transform.position = 
 					FindOtherLevelPiece (activeLevelPieces [i]).gameObject
 						.transform.FindChild ("EndingLocation").position;
+				activeLevelPieces [i].ResetAllChildrenCoins ();
 			}
 		}
 	}
@@ -77,17 +78,17 @@ public class LevelPieceManager : MonoBehaviour {
 	}
 
 	// get random LevelPiece from levelPieces array
-	private LevelPiece GetNextAvailableLevelPiece() {
+	private LevelPiece GetRandomLevelPiece() {
 	
 		LevelPiece returnPiece = null;
 		while (returnPiece == null) {
-		
-			for (int i = 0; i < levelPieces.Length; i++) {
+
+			int randomIndex = Mathf.RoundToInt(Random.Range (0, levelPieces.Length));
+
+			if (!IsActivePiece(levelPieces[randomIndex])) {
 			
-				if (!IsActivePiece (levelPieces [i])) {
-				
-					returnPiece = levelPieces [i];
-				}
+				returnPiece = levelPieces [randomIndex];
+				Debug.Log ("Level Piece " + randomIndex);
 			}
 		}
 		return returnPiece;

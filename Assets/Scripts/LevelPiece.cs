@@ -3,6 +3,8 @@ using System.Collections;
 
 public class LevelPiece : MonoBehaviour {
 
+	public Coin[] coins;
+
 	// Initial location of the level piece
 	private Vector3 initialLocation;
 
@@ -17,5 +19,14 @@ public class LevelPiece : MonoBehaviour {
 	public Vector3 GetInitialLocation() {
 	
 		return initialLocation;
+	}
+
+	// reset all children coins for reuse
+	public void ResetAllChildrenCoins() {
+	
+		for (int i = 0; i < coins.Length; i++) {
+		
+			coins [i].ActivateCoin (true);
+		}
 	}
 }

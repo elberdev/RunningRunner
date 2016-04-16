@@ -31,9 +31,23 @@ public class Coin : MonoBehaviour {
 					// MonoBehavior you have to use Debug.Log since that belongs to 
 					// UnityEngine.
 					print (gameChar.coinCount);
-					Destroy (gameObject);
+					ActivateCoin (false);
 				}
 			}
 		}
+	}
+
+	// disable or enable coin so we can recycle them as we recycle the 
+	// level pieces
+	public void ActivateCoin(bool bActivate) {
+	
+		SpriteRenderer renderer;
+		BoxCollider2D collider;
+
+		renderer = gameObject.GetComponent<SpriteRenderer> ();
+		collider = gameObject.GetComponent<BoxCollider2D> ();
+
+		renderer.enabled = bActivate;
+		collider.enabled = bActivate;
 	}
 }
