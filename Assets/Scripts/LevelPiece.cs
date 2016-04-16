@@ -6,7 +6,8 @@ public class LevelPiece : MonoBehaviour {
 	// Initial location of the level piece
 	private Vector3 initialLocation;
 
-	// Use this for initialization
+	// Awake() gets called before start, so we can set this up
+	// before Start() is called in the LevelPieceManager class
 	void Awake () {
 		
 		initialLocation = transform.position;

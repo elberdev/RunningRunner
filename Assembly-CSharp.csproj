@@ -224,6 +224,7 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\LevelPiece.cs" />
+     <Compile Include="Assets\Scripts\LevelPieceManager.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\Obstacle_Axe.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
