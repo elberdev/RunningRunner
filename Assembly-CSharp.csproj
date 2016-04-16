@@ -228,6 +228,7 @@
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\Obstacle_Axe.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\SceneBackground.cs" />
      <Compile Include="Assets\Scripts\SpriteTiler.cs" />
      <None Include="Assets\Extensions\IOSNative\Documentation\ISN_VersionNotes.txt" />
      <None Include="Assets\Plugins\StansAssets\IOS\ISN_iAd.mm.txt" />
