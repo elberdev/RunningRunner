@@ -38,6 +38,13 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// ensure the slopes of the level pieces never push the character
+		// back and off the screen. This way he will keep up regardless
+		// of physics
+		Vector3 lockXPosition = transform.position;
+		lockXPosition.x = -.6f;
+		transform.position = lockXPosition;
+
 		// fade character frame by frame if isFadeOut is triggered
 		if (isFadeOut) {
 		
