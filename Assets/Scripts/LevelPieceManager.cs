@@ -23,7 +23,7 @@ public class LevelPieceManager : MonoBehaviour {
 
 		// assign level piece position to the ending position of the previous one
 		activeLevelPieces [1].transform.position = 
-			startingLevelPiece.gameObject.transform.FindChild ("EndLocation").position;
+			startingLevelPiece.gameObject.transform.FindChild ("EndingLocation").position;
 	}
 	
 	// Update is called once per frame
@@ -42,7 +42,7 @@ public class LevelPieceManager : MonoBehaviour {
 			activeLevelPieces [i].transform.position = newLocation;
 
 			// if it has passed the bounds of the LevelPieceManager
-			if (activeLevelPieces [i].transform.position.x < transform.position.x) {
+			if (activeLevelPieces [i].transform.FindChild("EndingLocation").transform.position.x < transform.position.x) {
 			
 				// and it's the beginning piece
 				if (activeLevelPieces [i] == startingLevelPiece) {
@@ -58,7 +58,7 @@ public class LevelPieceManager : MonoBehaviour {
 				// set its location to the end location of the other active piece
 				activeLevelPieces [i].transform.position = 
 					FindOtherLevelPiece (activeLevelPieces [i]).gameObject
-						.transform.FindChild ("EndLocation").position;
+						.transform.FindChild ("EndingLocation").position;
 			}
 		}
 	}
