@@ -90,6 +90,7 @@ public class LevelPieceManager : MonoBehaviour {
 				}
 			}
 		}
+		return returnPiece;
 	}
 
 	private bool IsActivePiece (LevelPiece piece) {
