@@ -12,4 +12,9 @@ public class GameInfo : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void PauseGame() {
+	
+		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
+	}
 }
