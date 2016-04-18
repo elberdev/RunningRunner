@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Character : MonoBehaviour {
@@ -14,6 +15,15 @@ public class Character : MonoBehaviour {
 
 	[System.NonSerialized]
 	public int coinCount;
+
+	public Canvas gameUI;
+
+	[System.NonSerialized]
+	public int distanceCount;
+
+	// this is the value that we will use to compute distance "travelled"
+	[System.NonSerialized]
+	public float currentTime;
 
 	[System.NonSerialized]
 	public Vector3 restartLocation;
@@ -44,6 +54,17 @@ public class Character : MonoBehaviour {
 		Vector3 lockXPosition = transform.position;
 		lockXPosition.x = -.6f;
 		transform.position = lockXPosition;
+
+		if (!isDead && Time.timeScale == 1) {
+
+			currentTime += Time.deltaTime + 0.025f;
+
+			if (currentTime >= 1.0f) {
+			
+				AddDistance (1);
+				currentTime = 0.0f;
+			}
+		}
 
 		// fade character frame by frame if isFadeOut is triggered
 		if (isFadeOut) {
@@ -139,6 +160,20 @@ public class Character : MonoBehaviour {
 		
 			// reset color of sprite renderer
 			gameCharacterSprite.color = resetColorAlpha;
+		}
+	}
+
+	// increment distance and update the display
+	public void AddDistance(int additional) {
+	
+		distanceCount += additional;
+		if (gameUI != null) {
+		
+			Text distanceText = gameUI.transform.Find ("DistanceBackground/DistanceValue").GetComponent<Text> ();
+			if (distanceText != null) {
+			
+				distanceText.text = distanceCount.ToString ();
+			}
 		}
 	}
 }
