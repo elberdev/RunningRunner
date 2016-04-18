@@ -23,7 +23,7 @@ public class Coin : MonoBehaviour {
 			
 				if (!gameChar.isDead) {
 				
-					gameChar.coinCount += 1;
+					gameChar.AddCoins(1);
 
 					// functionally, print() and Debug.Log() are identical, as
 					// print is simply a wrapper around Debug.Log(). print here 

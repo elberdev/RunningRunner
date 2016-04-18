@@ -176,4 +176,17 @@ public class Character : MonoBehaviour {
 			}
 		}
 	}
+
+	public void AddCoins(int additional) {
+	
+		coinCount += additional;
+		if (gameUI != null) {
+		
+			Text coinText = gameUI.transform.Find ("CoinBackground/CoinValue").GetComponent<Text> ();
+			if (coinText != null) {
+			
+				coinText.text = coinCount.ToString ();
+			}
+		}
+	}
 }
