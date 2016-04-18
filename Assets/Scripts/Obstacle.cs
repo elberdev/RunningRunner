@@ -20,9 +20,12 @@ public class Obstacle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		// rotate axe in accordance with our variables. Vector3.forward is
-		// shorthand for (0, 0, 1). Rotation here happens along the z axis
-		pivot.transform.Rotate(Vector3.forward, rotationSpeed);
-
+		// if game is not paused...
+		if (Time.timeScale == 1) {
+		
+			// rotate axe in accordance with our variables. Vector3.forward is
+			// shorthand for (0, 0, 1). Rotation here happens along the z axis
+			pivot.transform.Rotate(Vector3.forward, rotationSpeed);
+		}
 	}
 }
