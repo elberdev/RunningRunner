@@ -3,8 +3,14 @@ using System.Collections;
 
 public class GameInfo : MonoBehaviour {
 
+	private Transform removeAdsBackgroundScreen;
+	private Transform purchaseSucceededScreen;
+	private Transform purchaseFailedScreen;
+
 	// reference to GameUI canvas
 	public GameObject gameUI;
+
+	public GameObject menuUI;
 
 	// reference to character
 	public Character gameCharacter;
@@ -37,6 +43,16 @@ public class GameInfo : MonoBehaviour {
 			fadeTexture.pixelInset = new Rect (0.0f, 0.0f, Screen.width, Screen.height);
 
 			RestartGame ();
+		}
+	}
+
+	void Start() {
+	
+		if (menuUI != null) {
+		
+			removeAdsBackgroundScreen = menuUI.transform.Find ("RemoveAdsBackgroundScreen");
+			purchaseSucceededScreen = menuUI.transform.Find ("PurchaseSucceededBackgroundScreen");
+			purchaseFailedScreen = menuUI.transform.Find ("PurchaseFailedBackgroundScreen");
 		}
 	}
 	
@@ -137,6 +153,33 @@ public class GameInfo : MonoBehaviour {
 		if (gameUI != null) {
 		
 			gameUI.transform.Find ("RestartButton").gameObject.SetActive (!shouldHide);
+		}
+	}
+
+	// show or hide purchase screen
+	public void ShowPurchaseScreen(bool shouldShow) {
+		
+		if (removeAdsBackgroundScreen != null) {
+		
+			removeAdsBackgroundScreen.gameObject.SetActive (shouldShow);
+		}
+	}
+
+	// show or hide success screen
+	public void ShowSuccessScreen(bool shouldShow) {
+	
+		if (purchaseSucceededScreen != null) {
+		
+			purchaseSucceededScreen.gameObject.SetActive (shouldShow);
+		}
+	}
+
+	// show or hide failure screen
+	public void ShowFailScreen(bool shouldShow) {
+	
+		if (purchaseFailedScreen != null) {
+		
+			purchaseFailedScreen.gameObject.SetActive (shouldShow);
 		}
 	}
 }
