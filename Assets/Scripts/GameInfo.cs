@@ -85,7 +85,7 @@ public class GameInfo : MonoBehaviour {
 		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
 	}
 
-	private void RestartGame() {
+	public void RestartGame() {
 
 		// game cannot be paused
 		if (Time.timeScale == 1) {
