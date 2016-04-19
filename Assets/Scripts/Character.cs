@@ -7,6 +7,8 @@ public class Character : MonoBehaviour {
 	// parameters with [System.NonSerialized] will not show up in the list
 	// of parameters in the editor and will not be serialized.
 
+	public GameInfo game;
+
 	[System.NonSerialized]
 	public bool isJumping;
 
@@ -143,6 +145,11 @@ public class Character : MonoBehaviour {
 				isDead = true;
 				// the consequences of this will be handled in Update() function
 				isFadeOut = true;
+
+				if (game != null) {
+				
+					game.HideRestartButton (false);
+				}
 			}
 		}
 	}
@@ -161,6 +168,7 @@ public class Character : MonoBehaviour {
 			// reset color of sprite renderer
 			gameCharacterSprite.color = resetColorAlpha;
 		}
+		distanceCount = 0;
 	}
 
 	// increment distance and update the display

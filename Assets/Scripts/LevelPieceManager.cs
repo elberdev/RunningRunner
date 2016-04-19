@@ -105,4 +105,20 @@ public class LevelPieceManager : MonoBehaviour {
 		}
 		return false;
 	}
+
+	// resets level pieces to beginning positions, resets coins, makes sure they're
+	// all active and runs start function again.
+	public void ResetLevelPieces() {
+
+		for (int i = 0; i < levelPieces.Length; i++) {
+		
+			levelPieces [i].transform.position = levelPieces [i].GetInitialLocation ();
+			levelPieces [i].ResetAllChildrenCoins ();
+		}
+
+		startingLevelPiece.transform.position = startingLevelPiece.GetInitialLocation ();
+		startingLevelPiece.gameObject.SetActive (true);
+
+		Start ();
+	}
 }
