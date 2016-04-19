@@ -1,0 +1,8 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="GameInfo">
+			<method name="RestartGame"/>
+			<method name="PauseGame"/>
+		</type>
+	</assembly>
+</linker>

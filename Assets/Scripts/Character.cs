@@ -42,6 +42,12 @@ public class Character : MonoBehaviour {
 	void Start () {
 	
 		restartLocation = gameObject.transform.position;
+
+		// pull saved coin count
+		coinCount = PlayerPrefs.GetInt ("Coins");
+		// update coin count ui
+		AddCoins (0);
+
 		gameCharacterSprite = gameObject.GetComponent<SpriteRenderer> ();
 		characterRigidbody = gameObject.GetComponent<Rigidbody2D> ();
 		characterAnimator = gameObject.GetComponent<Animator> ();
@@ -150,6 +156,10 @@ public class Character : MonoBehaviour {
 				
 					game.HideRestartButton (false);
 				}
+
+				// save our coin count
+				PlayerPrefs.SetInt ("Coins", coinCount);
+				PlayerPrefs.Save ();
 			}
 		}
 	}
