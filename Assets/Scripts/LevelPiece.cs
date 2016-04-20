@@ -8,6 +8,9 @@ public class LevelPiece : MonoBehaviour {
 	// Initial location of the level piece
 	private Vector3 initialLocation;
 
+	// End location of level piece
+	public Transform endLocation;
+
 	// Awake() gets called before start, so we can set this up
 	// before Start() is called in the LevelPieceManager class
 	void Awake () {

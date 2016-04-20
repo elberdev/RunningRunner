@@ -3,6 +3,13 @@ using System.Collections;
 
 public class LevelPieceManager : MonoBehaviour {
 
+	[System.NonSerialized]
+	// if the game is being played or in main menu
+	public bool isGameRunning;
+
+	// main menu level piece
+	public LevelPiece idleLevelPiece;
+
 	public LevelPiece startingLevelPiece;
 
 	// level pieces to cycle through
@@ -17,13 +24,23 @@ public class LevelPieceManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+		// bool values default to false, so when Start runs isGameRunning is false
 		activeLevelPieces = new LevelPiece[2];
+		ResetLevelPieces (isGameRunning);
+	}
+
+	void SetGamePieces() {
+
 		activeLevelPieces [0] = startingLevelPiece;
 		activeLevelPieces [1] = GetRandomLevelPiece ();
+		activeLevelPieces [1].transform.position = activeLevelPieces [0].endLocation.position;
+	}
 
-		// assign level piece position to the ending position of the previous one
-		activeLevelPieces [1].transform.position = 
-			startingLevelPiece.gameObject.transform.FindChild ("EndingLocation").position;
+	void SetIdlePieces() {
+
+		activeLevelPieces [0] = startingLevelPiece;
+		activeLevelPieces [1] = idleLevelPiece;
+		activeLevelPieces[1].transform.position = activeLevelPieces[0].endLocation.position;
 	}
 	
 	// Update is called once per frame
@@ -42,24 +59,32 @@ public class LevelPieceManager : MonoBehaviour {
 			activeLevelPieces [i].transform.position = newLocation;
 
 			// if it has passed the bounds of the LevelPieceManager
-			if (activeLevelPieces [i].transform.FindChild("EndingLocation").transform.position.x < transform.position.x) {
+			if (activeLevelPieces [i].endLocation.transform.position.x 
+				< transform.position.x) {
 			
-				// and it's the beginning piece
-				if (activeLevelPieces [i] == startingLevelPiece) {
+				if (isGameRunning) {
 				
-					// remove it from our reusable pieces
-					activeLevelPieces [i].gameObject.SetActive (false);
-				}
+					// and it's the beginning piece
+					if (activeLevelPieces [i] == startingLevelPiece) {
 
-				// reset used piece location to initial spawn location
-				activeLevelPieces [i].transform.position = activeLevelPieces [i].GetInitialLocation ();
-				// get a new level piece that is not currently in use
-				activeLevelPieces [i] = GetRandomLevelPiece ();
-				// set its location to the end location of the other active piece
-				activeLevelPieces [i].transform.position = 
-					FindOtherLevelPiece (activeLevelPieces [i]).gameObject
-						.transform.FindChild ("EndingLocation").position;
-				activeLevelPieces [i].ResetAllChildrenCoins ();
+						// remove it from our reusable pieces
+						activeLevelPieces [i].gameObject.SetActive (false);
+					}
+					// reset used piece location to initial spawn location
+					activeLevelPieces [i].transform.position = activeLevelPieces [i].GetInitialLocation ();
+					// get a new level piece that is not currently in use
+					activeLevelPieces [i] = GetRandomLevelPiece ();
+					// set its location to the end location of the other active piece
+					activeLevelPieces [i].transform.position = 
+						FindOtherLevelPiece (activeLevelPieces [i]).endLocation.position;
+					activeLevelPieces [i].ResetAllChildrenCoins ();
+				
+				} else {
+				
+					// if game is paused, recycle the two level pieces over and over
+					LevelPiece nextLevelPiece = (i == 0) ? activeLevelPieces [1] : activeLevelPieces [0];
+					activeLevelPieces [i].transform.position = nextLevelPiece.endLocation.position;
+				}
 			}
 		}
 	}
@@ -108,17 +133,26 @@ public class LevelPieceManager : MonoBehaviour {
 
 	// resets level pieces to beginning positions, resets coins, makes sure they're
 	// all active and runs start function again.
-	public void ResetLevelPieces() {
+	public void ResetLevelPieces(bool isRunning) {
+
+		isGameRunning = isRunning;
+		startingLevelPiece.transform.position = startingLevelPiece.GetInitialLocation ();
+		startingLevelPiece.gameObject.SetActive (true);
+		idleLevelPiece.gameObject.SetActive (!isGameRunning);
 
 		for (int i = 0; i < levelPieces.Length; i++) {
 		
 			levelPieces [i].transform.position = levelPieces [i].GetInitialLocation ();
 			levelPieces [i].ResetAllChildrenCoins ();
 		}
-
-		startingLevelPiece.transform.position = startingLevelPiece.GetInitialLocation ();
-		startingLevelPiece.gameObject.SetActive (true);
-
-		Start ();
+			
+		if (isGameRunning) {
+		
+			SetGamePieces ();
+		
+		} else {
+		
+			SetIdlePieces ();
+		}
 	}
 }

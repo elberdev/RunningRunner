@@ -3,6 +3,11 @@ using System.Collections;
 
 public class GameInfo : MonoBehaviour {
 
+	// if game is running or at menu idle
+	[System.NonSerialized]
+	public bool isGameRunning;
+
+	// menu UI objects
 	private Transform removeAdsBackgroundScreen;
 	private Transform purchaseSucceededScreen;
 	private Transform purchaseFailedScreen;
@@ -10,7 +15,7 @@ public class GameInfo : MonoBehaviour {
 	// reference to GameUI canvas
 	public GameObject gameUI;
 
-	public GameObject menuUI;
+	public Canvas menuUI;
 
 	// reference to character
 	public Character gameCharacter;
@@ -126,7 +131,7 @@ public class GameInfo : MonoBehaviour {
 
 		if (levelManager != null) {
 		
-			levelManager.ResetLevelPieces ();
+			levelManager.ResetLevelPieces (isGameRunning);
 		}
 	}
 
@@ -181,5 +186,22 @@ public class GameInfo : MonoBehaviour {
 		
 			purchaseFailedScreen.gameObject.SetActive (shouldShow);
 		}
+	}
+
+	public void GameStateButtonPressed(bool shouldRun) {
+	
+		isGameRunning = shouldRun;
+
+		if (menuUI != null) {
+		
+			menuUI.gameObject.SetActive (!shouldRun);
+		}
+
+		if (gameUI != null) {
+		
+			gameUI.gameObject.SetActive (shouldRun);
+		}
+
+		RestartGame ();
 	}
 }
