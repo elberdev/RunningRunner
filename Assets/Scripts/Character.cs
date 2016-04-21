@@ -7,6 +7,8 @@ public class Character : MonoBehaviour {
 	// parameters with [System.NonSerialized] will not show up in the list
 	// of parameters in the editor and will not be serialized.
 
+	public LevelPieceManager levelManager;
+
 	public GameInfo game;
 
 	[System.NonSerialized]
@@ -99,7 +101,8 @@ public class Character : MonoBehaviour {
 	public void ReceiveInput(float distance, Vector2 direction) {
 
 		// make sure we have a reference to the character before attempting anything
-		if (characterRigidbody != null && characterAnimator != null) {
+		if (characterRigidbody != null && characterAnimator != null
+			&& levelManager.isGameRunning) {
 		
 			// reset x to 0. we really only care about the y here.
 			direction.x = 0.0f;
@@ -185,7 +188,7 @@ public class Character : MonoBehaviour {
 	public void AddDistance(int additional) {
 	
 		distanceCount += additional;
-		if (gameUI != null) {
+		if (gameUI != null && levelManager.isGameRunning) {
 		
 			Text distanceText = gameUI.transform.Find ("DistanceBackground/DistanceValue").GetComponent<Text> ();
 			if (distanceText != null) {
