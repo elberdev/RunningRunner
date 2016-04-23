@@ -191,15 +191,18 @@ public class GameInfo : MonoBehaviour {
 	public void GameStateButtonPressed(bool shouldRun) {
 	
 		isGameRunning = shouldRun;
+		Debug.Log ("Game is now running.");
 
 		if (menuUI != null) {
 		
 			menuUI.gameObject.SetActive (!shouldRun);
+			Debug.Log ("Menu is no longer active");
 		}
 
 		if (gameUI != null) {
 		
 			gameUI.gameObject.SetActive (shouldRun);
+			Debug.Log ("Game ui is active");
 		}
 
 		RestartGame ();
