@@ -158,6 +158,7 @@ public class GameInfo : MonoBehaviour {
 		if (gameUI != null) {
 		
 			gameUI.transform.Find ("RestartButton").gameObject.SetActive (!shouldHide);
+			gameUI.transform.Find ("BackToMenuButton").gameObject.SetActive (!shouldHide);
 		}
 	}
 
